@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, <init></init>ial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Book</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="css/style1.css">
+
+</head>
+  <body>
+    <div class="main">
+
+        <div class="container">
+            <div class="booking-content">
+                <div class="booking-image">
+                    <img class="booking-img" src="images/form-img.jpg" alt="Booking Image">
+                </div>
+                <div class="booking-form">
+                    <form autocomplete="off" action='/cart'  id="booking-form" method="post">
+                        <h2>Book my Stay!!</h2>
+                        <h5 style="color:red"><%=sess.book_head%></h5>
+                        <div class="form-group form-input">
+                            <input type="text" name="name" id="name" value="" required/>
+                            <label for="name" class="form-label">Your name</label>
+                        </div>
+
+                        <div  class="form-group form-input">
+                            <div class="select-list">
+                                <select   name="RoomID"  required>
+                                    <option value="">Select Your Room type</option>
+                                    <option value="1">Single Room        - ₹<%=sess.room_data[0]['Fare']%> per day</option>
+                                    <option value="2">Deluxe Room        - ₹<%=sess.room_data[1]['Fare']%> per day</option>
+                                    <option value="3">Super Deluxe Room  - ₹<%=sess.room_data[2]['Fare']%> per day</option>
+                                    <option value="4">Executive Suite    - ₹<%=sess.room_data[3]['Fare']%> per day</option>
+                                    <option value="5">Garden Suite       - ₹<%=sess.room_data[4]['Fare']%> per day</option>
+                                    <option value="6">President Suite     - ₹<%=sess.room_data[5]['Fare']%> per day</option>
+                                </select>
+                            </div>
+                          </div>
+                        <div class="form-group form-input">
+                            <input type="number" min=0 name="countOfRooms" id="countOfRooms" value="" required />
+                            <label for="countOfRooms" class="form-label">Enter Required nuber of rooms</label>
+                        </div>
+                        <div class="form-group form-input">
+                          Select your Check In date
+                            <input type="date" min="2020-04-15" class ="checkIn" name="checkInDate" id="checkInDate" value="" placeholder=" " required/>
+                            <label for="checkInDate" class="form-label"></label>
+                        </div>
+
+                        <div class="form-group form-input">
+                          Enter Check In Time
+                            <input type="time" name="checkInTime" id="checkInTime" value="" required/>
+
+                            <label for="checkInTime" class="form-label"></label>
+                        </div>
+
+                        <div class="form-group form-input">
+                          Select your Check Out date
+                            <input type="date" class ="checkOut" name="checkOutDate" id="checkOutDate" value="" placeholder=" " required/>
+                            <label for="checkOutDate" class="form-label"></label>
+                        </div>
+
+                        <div class="form-submit">
+                          <br>
+                            <input type="submit" value="Book now" class="submit" id="submit" name="submit" />
+                        </div>
+                    </form>
+
+            </div>
+        </div>
+
+    </div>
+<script type="text/javascript">
+
+
+    function GetDays(){
+                    var dropdt = new Date(document.getElementById("checkInDate").value);
+                    var pickdt = new Date(document.getElementById("checkOutDate").value);
+                    return parseInt((dropdt - pickdt) / (24 * 3600 * 1000));
+            }
+
+
+            document.querySelector("#checkOutDate").addEventListener("input",  function (){
+                document.getElementById("#output").inner="hi";
+              if(document.getElementById("checkOutDate")){
+                  document.getElementById("output").value=GetDays();
+              });
+        }
+
+</script>
+    <script type="text/javascript">
+      var today = new Date();
+      var dd = today.getDate();
+      var mm = today.getMonth()+1; //January is 0!
+      var yyyy = today.getFullYear();
+
+      if(dd<10){
+            dd='0'+dd
+        }
+        if(mm<10){
+            mm='0'+mm
+        }
+
+      today=yyyy+'-'+mm+'-'+dd;
+      document.querySelector("#checkInDate").min= today;
+      document.querySelector("#checkInDate").addEventListener("input",function(){
+        var checkin=document.querySelector("#checkInDate").value;
+        document.querySelector("#checkOutDate").min= checkin;
+      });
+
+
+    </script>
+
+    <!-- JS -->
+    <script src="vendor/jquery/jquery1.min.js"></script>
+    <script src="js/main.js"></script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+
+</html>

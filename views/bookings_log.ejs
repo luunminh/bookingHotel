@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>My Bookings</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  </head>
+  <body>
+    <!-- Latest compiled and minified CSS -->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+   <!-- jQuery library -->
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+   <!-- Latest compiled JavaScript -->
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+<a href="/home" class="btn btn-warning btn-lg ">Home</a>
+<center>
+  <h1>My Bookings</h1>
+</center>
+<br>
+<table id="example" class="display " width="100%" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Booking ID </th>
+            <th>Name </th>
+            <th>Name(Guest arriving)</th>
+            <th>Room Type </th>
+            <th>Number of Booked Rooms</th>
+            <th>Check In Date </th>
+            <th>Check In Time </th>
+            <th>Check Out Date</th>
+            <th>Duration of Stay</th>
+        </tr>
+    </thead>
+    <tbody>
+      <% for (var k in data){ %>
+          <tr>
+      <%   for(var i in data[k]){ %>
+        <% if(i=="ClientID"){ %>
+          <td><%=sess.name %></td>
+        <% } else if(i=="RoomID"){ %>
+            <td><%=rooms[data[k][i]-1] %></td>
+          <% } else{%>
+          <td>  <%=data[k][i]%></td>
+            <% }%>
+        <%  }  %>
+        </tr>
+
+      <%    }  %>
+
+    </tbody>
+
+</table>
+<br>
+<center>
+  <a href="/book" class="btn btn-primary btn-lg ">Add Bookings</a>
+
+</center>
+
+
+  </body>
+</html>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#example').DataTable( {
+        "pagingType": "full_numbers"
+    } );
+} );
+</script>
